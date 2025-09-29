@@ -1,0 +1,358 @@
+/* Temel Stil (4. Gün) */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-btn {
+    padding: 0.5rem 1rem;
+    background-color: #f7a000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için transition ön ekleri */
+    -webkit-transition: background-color 0.3s ease; 
+    -moz-transition: background-color 0.3s ease;
+    -ms-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+
+/* ==========================================================
+    ÜRÜN KARTLARI VE LAYOUT (6. Gün Flexbox Pratiği)
+    ========================================================== */
+.product-grid {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px;
+    padding: 1rem;
+}
+
+.food-card {
+    flex: 1 1 calc(33.33% - 20px); 
+    max-width: calc(33.33% - 20px);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 15px;
+    
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için box-shadow ön ekleri */
+    -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.food-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* ANA LAYOUT (6. Gün Flexbox) */
+main {
+    display: flex; 
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 30px; 
+    padding: 0 15px; 
+}
+
+#urunler {
+    flex: 3; 
+}
+
+/* ==========================================================
+    SEPET ALANI STİLİ (6. Gün)
+    ========================================================== */
+#sepet-alani {
+    flex: 1; 
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: fit-content; 
+    position: sticky; 
+    top: 20px;
+}
+
+.sepet-urun { /* 7. Gün: Sepet listesindeki her bir ürün için stil */
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px dotted #ccc;
+    font-size: 0.9rem;
+}
+
+#sepet-ozet {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+#siparis-tamamla-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için transition ön ekleri */
+    -webkit-transition: background-color 0.3s ease; 
+    -moz-transition: background-color 0.3s ease;
+    -ms-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+
+/* ==========================================================
+    RESPONSIVE DÜZENLEME (6. Gün Media Queries)
+    ========================================================== */
+@media (max-width: 768px) {
+    /* Tablet ve Mobil: Ana içeriği alt alta yığar */
+    main {
+        flex-direction: column; 
+    }
+    
+    #sepet-alani {
+        position: relative; 
+        width: 100%; 
+        margin: 0;
+    }
+
+    /* Tablet Görünümü: İki sütunlu kartlar */
+    .food-card {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 600px) {
+    /* Mobil Görünüm: Tek sütunlu kartlar */
+    .product-grid {
+        display: block; 
+        padding: 0;
+    }
+    .food-card {
+        margin-bottom: 1rem;
+        max-width: 100%;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* 8. Gün Eklentisi: Sepet Yönetimi Stili */
+.sepet-urun {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dotted #ccc;
+}
+.adet-yonetimi button, .sil-btn {
+    padding: 5px 8px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.sil-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+}
+
+/* ==========================================================
+// 9. GÜN: FORM MODALI VE TASARIMI
+// ========================================================== */
+
+/* Tüm formların ve mesajların bulunduğu ana kapsayıcıyı (arka planı) gizler */
+#form-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Hafif karartılmış arka plan */
+    display: none; /* Varsayılan olarak gizli */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Diğer tüm içeriklerin üzerinde */
+}
+
+/* Modal kutunun kendisi */
+.form-modal {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için box-shadow ön ekleri */
+    -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    display: flex; /* İçindeki elementleri düzenlemek için */
+    flex-direction: column;
+    gap: 15px; /* Elementler arasına boşluk */
+}
+
+.form-modal h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #e74c3c; /* Ana renk ile alt çizgi */
+    padding-bottom: 10px;
+}
+
+/* Giriş Alanları (Inputlar) */
+.form-modal input, .checkout-form select, .checkout-form textarea { /* 10. Gün: select ve textarea eklendi */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için transition ön ekleri */
+    -webkit-transition: border-color 0.3s;
+    -moz-transition: border-color 0.3s;
+    -ms-transition: border-color 0.3s;
+    transition: border-color 0.3s;
+}
+
+/* 15. GÜN: KULLANILABİLİRLİK İYİLEŞTİRMELERİ (Focus Efekti) */
+/* Giriş/Kayıt Modalındaki Inputları Daha Belirgin Yapma (Tema Rengiyle Uyumlu) */
+.form-modal input:focus, .form-modal select:focus, .form-modal textarea:focus {
+    border-color: #f7a000; 
+    outline: none;
+    box-shadow: 0 0 7px rgba(247, 160, 0, 0.7); /* Turuncu gölge */
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için box-shadow ön ekleri */
+    -webkit-box-shadow: 0 0 7px rgba(247, 160, 0, 0.7);
+    -moz-box-shadow: 0 0 7px rgba(247, 160, 0, 0.7);
+}
+
+/* Buton Stili (Giriş Yap/Kayıt Ol) */
+.form-modal button:not(.close-modal) {
+    background-color: #e74c3c; /* Kırmızı renk */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için transition ön ekleri */
+    -webkit-transition: background-color 0.3s, transform 0.1s;
+    -moz-transition: background-color 0.3s, transform 0.1s;
+    -ms-transition: background-color 0.3s, transform 0.1s;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 10px;
+}
+
+.form-modal button:not(.close-modal):hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+}
+
+/* Kapat Butonu */
+.close-modal {
+    background-color: #f1f1f1;
+    color: #666;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için transition ön ekleri */
+    -webkit-transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+    -ms-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+.close-modal:hover {
+    background-color: #ddd;
+}
+
+/* Mesajlar */
+.error-message {
+    color: #e74c3c; /* Hata mesajları için kırmızı */
+    font-weight: bold;
+    height: 1.2em; /* Mesaj yokken boşluk bırakmak için */
+}
+
+/* 11. GÜN: SİPARİŞ GEÇMİŞİ STİLİ */
+
+#siparis-gecmisi-alani {
+    display: none; /* JS ile gösterilir */
+    padding: 20px;
+    flex: 1;
+}
+
+.siparis-kart {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için box-shadow ön ekleri */
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.siparis-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+}
+
+.siparis-body p {
+    margin: 5px 0;
+}
+
+.detay-goster-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    /* 16. GÜN EKLENTİSİ: Uyumluluk için transition ön ekleri */
+    -webkit-transition: background-color 0.3s;
+    -moz-transition: background-color 0.3s;
+    -ms-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+.detay-goster-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Detay Modal Stili (11. Gün) */
+#detay-modal h3 {
+    color: #3498db;
+}
+
+#detay-urunler-listesi {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    text-align: left;
+}
