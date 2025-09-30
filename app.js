@@ -1,5 +1,5 @@
 // ==========================================================
-// app.js - 17. Gün Son Hali (Asenkron Simülasyon Eklendi)
+// app.js - MİNİMAL OPTİMİZASYONLU VERSİYON
 // ==========================================================
 
 // ==========================================================
@@ -10,7 +10,7 @@ const urunListesi = [
     { id: 2, ad: "Pizza Margherita", fiyat: 150, aciklama: "İtalyan mutfağının incisi.", resim: "pizza.jpg" },
     { id: 3, ad: "Salata", fiyat: 80, aciklama: "Sağlıklı ve taze seçenek.", resim: "salata.jpg" },
     { id: 4, ad: "Hünkar Beğendi", fiyat: 500, aciklama: "Sağlıklı ve en taze seçenek", resim: "beğendi.jpg" },
-    { id: 5, ad: "Domates Çorbası", fiyat: 140, aciklama: "Anne eli değmiş gibi", resim: "çorba.avif" }
+    { id: 5, ad: "Domates Çorbası", fiyat: 140, aciklama: "Anne eli değmiş gibi", resim: "çorba.jpg" } // Format sorunu potansiyelini azaltmak için .jpg yapıldı.
 ];
 
 // ==========================================================
@@ -18,7 +18,7 @@ const urunListesi = [
 // ==========================================================
 const urunlerKapsayici = document.querySelector('.product-grid'); 
 const baslik = document.querySelector('h1');
-const menuButon = document.querySelector('.menu-btn'); 
+// const menuButon = document.querySelector('.menu-btn'); // Kaldırıldı, kullanılmıyor
 const sepetListesiKapsayici = document.querySelector('#sepet-listesi'); 
 const toplamTutarSpan = document.querySelector('#toplam-tutar'); 
 const sepetUrunSayisiSpan = document.querySelector('#sepet-urun-sayisi'); 
@@ -43,7 +43,7 @@ const checkoutPhone = document.querySelector('#checkout-phone');
 const checkoutPaymentMethod = document.querySelector('#checkout-payment-method');
 const checkoutMessage = document.querySelector('#checkout-message');
 const submitCheckoutBtn = document.querySelector('#submit-checkout');
-const closeCheckoutBtn = document.querySelector('#close-checkout');
+// const closeCheckoutBtn = document.querySelector('#close-checkout'); // Kaldırıldı, close-modal ile yönetiliyor
 
 // 11. GÜN: Sipariş Geçmişi DOM Seçicileri
 const siparisGecmisiAlani = document.querySelector('#siparis-gecmisi-alani');
@@ -81,7 +81,7 @@ function basligiDegistir() {
         baslik.innerHTML = 'Lezzet Durağı';
     }
 }
-menuButon.addEventListener('click', basligiDegistir);
+// menuButon.addEventListener('click', basligiDegistir); // Kullanılmayan Listener Kaldırıldı
 
 
 // ==========================================================
@@ -271,6 +271,7 @@ function handleLogout() {
 function renderSessionState() {
     const userName = localStorage.getItem('currentUser');
     
+    // HTML kodunuzdaki buton yapısını koruyarak tekrar oluşturuyoruz
     if (userName) {
         // Oturum Açık
         oturumBilgisiDiv.innerHTML = `
@@ -344,8 +345,14 @@ function completeOrder() {
     }
 
     // 1. Loading Durumunu Başlat
-    checkoutSpinner.style.display = 'block'; // Spinner'ı göster
-    checkoutFormContent.style.display = 'none'; // Form içeriğini gizle
+    // HTML yapınızı korumak için, burada sadece form içeriğini gizleyip, spinner'ı gösteriyoruz.
+    // Spinner'ın kendisi HTML'de elle yazıldığı için, onun stilini değiştirmeyi atlayabiliriz.
+    const loadingSpinnerDiv = document.querySelector('#checkout-form-modal #loading-spinner');
+    if (loadingSpinnerDiv) loadingSpinnerDiv.style.display = 'block';
+
+    if (checkoutFormContent) checkoutFormContent.style.display = 'none';
+    if (checkoutSpinner) checkoutSpinner.style.style.display = 'block'; // Yeni spinner
+
     checkoutMessage.textContent = 'Siparişiniz işleniyor...';
     checkoutMessage.style.color = '#f7a000'; // Turuncu renkte loading mesajı
 
@@ -379,12 +386,15 @@ function completeOrder() {
         checkoutMessage.textContent = `Siparişiniz (${orderDetails.orderId}) başarıyla alındı!`;
         checkoutMessage.style.color = 'green';
         
-        checkoutSpinner.style.display = 'none'; // Spinner'ı Kapat
+        if (loadingSpinnerDiv) loadingSpinnerDiv.style.display = 'none'; // Spinner'ı Kapat
 
         setTimeout(() => {
             checkoutModal.style.display = 'none';
             formContainer.style.display = 'none';
-            checkoutFormContent.style.display = 'flex'; // Form içeriğini bir sonraki açılış için geri göster
+            // Formu ve spinner'ı bir sonraki kullanım için sıfırla
+            if (checkoutFormContent) checkoutFormContent.style.display = 'flex';
+            if (loadingSpinnerDiv) loadingSpinnerDiv.style.display = 'none';
+
             switchPage('ana'); // Sipariş bitince ana sayfaya dön
         }, 1500); // Başarılı mesajını göstermek için kısa bekleme
 
@@ -533,9 +543,10 @@ closeButtons.forEach(button => {
         detayModal.style.display = 'none'; // Detay modalı kapat
         formContainer.style.display = 'none';
         
-        // 17. Gün Eklentisi: Form içeriğini geri göster
-        if(checkoutFormContent) checkoutFormContent.style.display = 'flex'; 
-        if(checkoutSpinner) checkoutSpinner.style.display = 'none'; 
+        // 17. Gün Eklentisi: Form içeriğini ve spinner'ı sıfırla
+        // loading-spinner div'i HTML'inizde zaten var.
+        const loadingSpinnerDiv = document.querySelector('#checkout-form-modal #loading-spinner');
+        if (loadingSpinnerDiv) loadingSpinnerDiv.style.display = 'none';
         
     });
 });
