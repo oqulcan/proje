@@ -11,10 +11,7 @@
         <h1>Lezzet Durağı</h1>
         <nav id="anaMenu">
             <div id="oturum-bilgisi">
-                <div id="oturum-bilgisi">
                 <button id="gecmis-btn" class="menu-btn" style="display:none;">Geçmiş Siparişler</button> 
-                <button id="login-btn" class="menu-btn">Giriş Yap</button>
-                </div>
                 <button id="login-btn" class="menu-btn">Giriş Yap</button>
                 <button id="register-btn" class="menu-btn">Kayıt Ol</button>
                 <button id="logout-btn" class="menu-btn" style="display:none;">Çıkış Yap</button>
@@ -23,30 +20,12 @@
     </header>
 
     <main>
-    <section id="siparis-gecmisi-alani" class="content-page" style="display:none;">
-    <h2>Sipariş Geçmişim</h2>
-    <p id="gecmis-mesaj"></p>
-    <div id="siparisler-listesi">
-        </div>
-</section>
+        <section id="siparis-gecmisi-alani" class="content-page" style="display:none;">
+            <h2>Sipariş Geçmişim</h2>
+            <p id="gecmis-mesaj"></p>
+            <div id="siparisler-listesi"></div>
+        </section>
 
-<div id="detay-modal" class="form-modal" style="display:none;">
-    <h3>Sipariş Detayı (<span id="detay-order-id"></span>)</h3>
-    <p>Tarih: <span id="detay-date"></span></p>
-    <p>Adres: <span id="detay-address"></span></p>
-
-    <hr style="width: 100%; margin: 15px 0;">
-
-    <h4>Ürünler:</h4>
-    <div id="detay-urunler-listesi">
-        </div>
-
-    <hr style="width: 100%; margin: 15px 0;">
-
-    <h4 style="text-align: right;">Toplam Tutar: <span id="detay-total"></span> TL</h4>
-
-    <button id="close-detay-modal" class="close-modal">Kapat</button>
-</div>
         <section id="urunler">
             <h2>Güncel Menü</h2>
             <div class="product-grid">
@@ -75,16 +54,6 @@
             <p id="login-message" class="error-message"></p>
             <button id="submit-login">Giriş Yap</button>
             <button class="close-modal">Kapat</button>
-            <div id="loading-spinner" style="
-            display: none; 
-            color: #f7a000; 
-            font-size: 1.5em; 
-            font-weight: bold; 
-            margin: 20px 0;
-            text-align: center;
-            ">
-            🛒 Siparişiniz İşleniyor... Lütfen Bekleyin...
-            </div>
         </div>
 
         <div id="register-form-modal" class="form-modal" style="display:none;">
@@ -99,23 +68,44 @@
         </div>
 
         <div id="checkout-form-modal" class="form-modal" style="display:none;">
-            <h3>Siparişinizi Tamamlayın</h3>
-            
-            <p id="checkout-message" class="error-message"></p>
+            <div id="checkout-form-content">
+                <h3>Siparişinizi Tamamlayın</h3>
+                <p id="checkout-message" class="error-message"></p>
+                <input type="text" id="checkout-name" placeholder="Ad Soyad" required>
+                <input type="text" id="checkout-address" placeholder="Teslimat Adresi" required>
+                <input type="tel" id="checkout-phone" placeholder="Telefon (5XXXXXXXXX)" required>
 
-            <input type="text" id="checkout-name" placeholder="Ad Soyad" required>
-            <input type="text" id="checkout-address" placeholder="Teslimat Adresi" required>
-            <input type="tel" id="checkout-phone" placeholder="Telefon (5XXXXXXXXX)" required>
+                <select id="checkout-payment-method" required>
+                    <option value="">Ödeme Tipini Seçiniz</option>
+                    <option value="kredi">Kredi Kartı </option>
+                    <option value="havale">Banka Havalesi</option>
+                    <option value="kapida">Kapıda Ödeme</option>
+                </select>
 
-            <select id="checkout-payment-method" required>
-                <option value="">Ödeme Tipini Seçiniz</option>
-                <option value="kredi">Kredi Kartı </option>
-                <option value="havale">Banka Havalesi</option>
-                <option value="kapida">Kapıda Ödeme</option>
-            </select>
+                <button id="submit-checkout">Siparişi Onayla</button>
+            </div>
 
-            <button id="submit-checkout">Siparişi Onayla</button>
+            <div id="checkout-spinner" style="display: none;">
+                <div class="spinner"></div> <p>Siparişiniz hazırlanıyor...</p>
+            </div>
+
             <button id="close-checkout" class="close-modal">Kapat</button>
+        </div>
+
+        <div id="detay-modal" class="form-modal" style="display:none;">
+            <h3>Sipariş Detayı (<span id="detay-order-id"></span>)</h3>
+            <p>Tarih: <span id="detay-date"></span></p>
+            <p>Adres: <span id="detay-address"></span></p>
+
+            <hr style="width: 100%; margin: 15px 0;">
+
+            <h4>Ürünler:</h4>
+            <div id="detay-urunler-listesi"></div>
+
+            <hr style="width: 100%; margin: 15px 0;">
+
+            <h4 style="text-align: right;">Toplam Tutar: <span id="detay-total"></span> TL</h4>
+            <button id="close-detay-modal" class="close-modal">Kapat</button>
         </div>
     </div>
     
@@ -123,6 +113,6 @@
         <p>&copy; 2025 MobileITM Staj Projesi. Tüm Hakları Saklıdır.</p>
     </footer>
 
-    <script src="app.js"></script> 
+    <script src="app.js" defer></script> 
 </body>
 </html>
