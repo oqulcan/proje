@@ -1,29 +1,20 @@
-// ==========================================================
-// app.js - MİNİMAL OPTİMİZASYONLU VERSİYON
-// ==========================================================
 
-// ==========================================================
-// 5. GÜN: Ürün Verileri
-// ==========================================================
 const urunListesi = [
     { id: 1, ad: "Pilav", fiyat: 120, aciklama: "Klasik lezzet durağı.", resim: "pilav.jpg" },
     { id: 2, ad: "Pizza Margherita", fiyat: 150, aciklama: "İtalyan mutfağının incisi.", resim: "pizza.jpg" },
     { id: 3, ad: "Salata", fiyat: 80, aciklama: "Sağlıklı ve taze seçenek.", resim: "salata.jpg" },
     { id: 4, ad: "Hünkar Beğendi", fiyat: 500, aciklama: "Sağlıklı ve en taze seçenek", resim: "beğendi.jpg" },
-    { id: 5, ad: "Domates Çorbası", fiyat: 140, aciklama: "Anne eli değmiş gibi", resim: "çorba.jpg" } // Format sorunu potansiyelini azaltmak için .jpg yapıldı.
+    { id: 5, ad: "Domates Çorbası", fiyat: 140, aciklama: "Anne eli değmiş gibi", resim: "corba.jpg" }, 
 ];
 
-// ==========================================================
-// 4, 5, 7, 9, 10, 11, 17. Gün: DOM Seçiciler
-// ==========================================================
+
 const urunlerKapsayici = document.querySelector('.product-grid'); 
 const baslik = document.querySelector('h1');
-// const menuButon = document.querySelector('.menu-btn'); // Kaldırıldı, kullanılmıyor
 const sepetListesiKapsayici = document.querySelector('#sepet-listesi'); 
 const toplamTutarSpan = document.querySelector('#toplam-tutar'); 
 const sepetUrunSayisiSpan = document.querySelector('#sepet-urun-sayisi'); 
 
-// 9. GÜN: Oturum Yönetimi DOM Seçicileri
+// Oturum Yönetimi DOM Seçicileri
 const formContainer = document.querySelector('#form-container'); 
 const loginModal = document.querySelector('#login-form-modal');
 const registerModal = document.querySelector('#register-form-modal');
@@ -34,7 +25,7 @@ const loginMessage = document.querySelector('#login-message');
 const registerMessage = document.querySelector('#register-message');
 const closeButtons = document.querySelectorAll('.close-modal');
 
-// 10. GÜN: Sipariş Formu DOM Seçicileri
+// Sipariş Formu DOM Seçicileri
 const tamamlaBtn = document.querySelector('#tamamla-btn'); 
 const checkoutModal = document.querySelector('#checkout-form-modal');
 const checkoutName = document.querySelector('#checkout-name');
@@ -43,9 +34,9 @@ const checkoutPhone = document.querySelector('#checkout-phone');
 const checkoutPaymentMethod = document.querySelector('#checkout-payment-method');
 const checkoutMessage = document.querySelector('#checkout-message');
 const submitCheckoutBtn = document.querySelector('#submit-checkout');
-// const closeCheckoutBtn = document.querySelector('#close-checkout'); // Kaldırıldı, close-modal ile yönetiliyor
 
-// 11. GÜN: Sipariş Geçmişi DOM Seçicileri
+
+
 const siparisGecmisiAlani = document.querySelector('#siparis-gecmisi-alani');
 const siparislerListesi = document.querySelector('#siparisler-listesi');
 const gecmisMesaj = document.querySelector('#gecmis-mesaj');
@@ -59,21 +50,17 @@ const closeDetayModalBtn = document.querySelector('#close-detay-modal');
 const gecmisBtn = document.querySelector('#gecmis-btn');
 
 
-// 17. GÜN: Asenkron Simülasyon Seçicileri (Yeni Eklendi)
+
 const checkoutSpinner = document.querySelector('#checkout-spinner'); // Loading animasyonunun göründüğü yer
 const checkoutFormContent = document.querySelector('#checkout-form-content'); // Form içeriğinin göründüğü yer
 
 
-// ==========================================================
-// LocalStorage Veri Yüklemeleri
-// ==========================================================
+
 let sepet = JSON.parse(localStorage.getItem('sepet')) || []; 
 let siparisGecmisi = JSON.parse(localStorage.getItem('siparisGecmisi')) || [];
 
 
-// ==========================================================
-// 4. GÜN: Basit DOM Manipülasyonu
-// ==========================================================
+
 function basligiDegistir() {
     if (baslik.innerHTML === 'Lezzet Durağı') {
         baslik.innerHTML = 'Afiyet Olsun! - Sipariş Hazır';
@@ -81,12 +68,10 @@ function basligiDegistir() {
         baslik.innerHTML = 'Lezzet Durağı';
     }
 }
-// menuButon.addEventListener('click', basligiDegistir); // Kullanılmayan Listener Kaldırıldı
 
 
-// ==========================================================
-// 5. GÜN: Dinamik Ürün Listesi Oluşturma
-// ==========================================================
+
+
 function urunleriYukle() {
     urunlerKapsayici.innerHTML = ''; 
 
@@ -109,9 +94,7 @@ function urunleriYukle() {
 urunleriYukle(); 
 
 
-// ==========================================================
-// 8. GÜN: Sepet Arayüzünü Çizme
-// ==========================================================
+
 function sepetiDOMaYukle() {
     sepetListesiKapsayici.innerHTML = ''; 
 
@@ -143,9 +126,7 @@ function sepetiDOMaYukle() {
 }
 
 
-// ==========================================================
-// 8. GÜN: Merkezi Sepet Güncelleme
-// ==========================================================
+
 function sepetiGuncelle() {
     // Toplam Tutarı Hesapla (reduce)
     const toplamTutar = sepet.reduce((toplam, urun) => toplam + (urun.fiyat * urun.adet), 0);
@@ -162,9 +143,7 @@ function sepetiGuncelle() {
     localStorage.setItem('sepet', JSON.stringify(sepet));
 }
 
-// ==========================================================
-// 7. GÜN: Sepete Ekleme Mantığı (Artırma)
-// ==========================================================
+
 function sepeteUrunEkle(urunID) {
     const urunIDNumber = Number(urunID);
     const mevcutUrun = sepet.find(urun => urun.id === urunIDNumber);
@@ -181,9 +160,7 @@ function sepeteUrunEkle(urunID) {
     sepetiGuncelle();
 }
 
-// ==========================================================
-// 8. GÜN: Sepet Yönetimi İşlevleri (Azaltma, Silme)
-// ==========================================================
+
 function sepettenSil(urunID) {
     const urunIDNumber = Number(urunID);
     sepet = sepet.filter(urun => urun.id !== urunIDNumber); 
@@ -206,9 +183,7 @@ function sepettenAzalt(urunID) {
 }
 
 
-// ==========================================================
-// 9. GÜN: Oturum Yönetimi Mantığı (Simülasyon)
-// ==========================================================
+
 function handleRegister() {
     const name = document.querySelector('#register-name').value;
     const email = document.querySelector('#register-email').value;
@@ -271,7 +246,7 @@ function handleLogout() {
 function renderSessionState() {
     const userName = localStorage.getItem('currentUser');
     
-    // HTML kodunuzdaki buton yapısını koruyarak tekrar oluşturuyoruz
+
     if (userName) {
         // Oturum Açık
         oturumBilgisiDiv.innerHTML = `
@@ -287,7 +262,7 @@ function renderSessionState() {
             <button id="login-btn" class="menu-btn">Giriş Yap</button>
             <button id="register-btn" class="menu-btn">Kayıt Ol</button>
         `;
-        // Yeni butonlara listenerları tekrar ekle
+       
         document.querySelector('#login-btn').addEventListener('click', () => {
             loginModal.style.display = 'flex';
             registerModal.style.display = 'none';
@@ -305,9 +280,7 @@ function renderSessionState() {
     }
 }
 
-// ==========================================================
-// 10. GÜN: Sipariş Onay ve Validasyon Mantığı
-// ==========================================================
+
 
 function validateCheckoutForm() {
     checkoutMessage.textContent = '';
@@ -336,17 +309,13 @@ function validateCheckoutForm() {
 }
 
 
-// ==========================================================
-// 17. GÜN: Asenkron Sipariş Simülasyonu (Güncellendi)
-// ==========================================================
+
 function completeOrder() {
     if (!validateCheckoutForm()) {
         return; 
     }
 
-    // 1. Loading Durumunu Başlat
-    // HTML yapınızı korumak için, burada sadece form içeriğini gizleyip, spinner'ı gösteriyoruz.
-    // Spinner'ın kendisi HTML'de elle yazıldığı için, onun stilini değiştirmeyi atlayabiliriz.
+
     const loadingSpinnerDiv = document.querySelector('#checkout-form-modal #loading-spinner');
     if (loadingSpinnerDiv) loadingSpinnerDiv.style.display = 'block';
 
@@ -402,10 +371,6 @@ function completeOrder() {
     }, 3000); // 3000 milisaniye = 3 saniye bekleme
 }
 
-
-// ==========================================================
-// 11. GÜN: Sipariş Geçmişi Yönetimi
-// ==========================================================
 
 // Ana Arayüz Alanlarını Yönetme
 function switchPage(pageId) {
@@ -503,11 +468,9 @@ function showSiparisDetay(orderId) {
 }
 
 
-// ==========================================================
-// OLAY DİNLEYİCİLER (Event Listeners)
-// ==========================================================
 
-// 5. GÜN: Sepete Ekle
+
+// Sepete Ekle
 urunlerKapsayici.addEventListener('click', function(e) {
     if (e.target.classList.contains('siparis-btn')) {
         const urunID = e.target.dataset.id;
@@ -515,7 +478,7 @@ urunlerKapsayici.addEventListener('click', function(e) {
     }
 });
 
-// 8. GÜN: Sepet Yönetimi (Azaltma, Artırma, Silme)
+// Sepet Yönetimi (Azaltma, Artırma, Silme)
 sepetListesiKapsayici.addEventListener('click', function(e) {
     const urunID = e.target.dataset.id;
     
@@ -530,28 +493,27 @@ sepetListesiKapsayici.addEventListener('click', function(e) {
     }
 });
 
-// 9. GÜN: Form Gönderme
+// Form Gönderme
 submitRegisterBtn.addEventListener('click', handleRegister);
 submitLoginBtn.addEventListener('click', handleLogin);
 
-// 9, 10, 11, 17. GÜN: Modal Kapatma Butonları (Tüm formları kapatır)
+
 closeButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         loginModal.style.display = 'none';
         registerModal.style.display = 'none';
         checkoutModal.style.display = 'none';
-        detayModal.style.display = 'none'; // Detay modalı kapat
+        detayModal.style.display = 'none'; 
         formContainer.style.display = 'none';
         
-        // 17. Gün Eklentisi: Form içeriğini ve spinner'ı sıfırla
-        // loading-spinner div'i HTML'inizde zaten var.
+        
         const loadingSpinnerDiv = document.querySelector('#checkout-form-modal #loading-spinner');
         if (loadingSpinnerDiv) loadingSpinnerDiv.style.display = 'none';
         
     });
 });
 
-// 10. GÜN: Sipariş Tamamlama Modalını Açma
+
 if (tamamlaBtn) { 
     tamamlaBtn.addEventListener('click', function() {
         if (sepet.length === 0) {
@@ -564,10 +526,10 @@ if (tamamlaBtn) {
     });
 }
 
-// 10. GÜN: Siparişi Onaylama
+
 submitCheckoutBtn.addEventListener('click', completeOrder);
 
-// 11. GÜN: Sipariş Geçmişi Detay Görüntüleme Delegasyonu
+
 siparislerListesi.addEventListener('click', function(e) {
     if (e.target.classList.contains('detay-goster-btn')) {
         const orderId = e.target.dataset.id;
@@ -575,17 +537,15 @@ siparislerListesi.addEventListener('click', function(e) {
     }
 });
 
-// 11. GÜN: Sayfa Başlığına Tıklama (Ana Sayfaya Dönüş)
+
 baslik.addEventListener('click', function() {
     switchPage('ana');
 });
 
-// ==========================================================
-// BAŞLANGIÇ ÇAĞRILARI
-// ==========================================================
 
-// 7. GÜN: Sepeti yükler
+
+// Sepeti yükler
 sepetiGuncelle(); 
 
-// 9. GÜN: Oturum durumunu kontrol eder
+// Oturum durumunu kontrol eder
 renderSessionState();
